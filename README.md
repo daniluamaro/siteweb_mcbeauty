@@ -1,58 +1,69 @@
-# siteweb_mcbeauty
+# Mayara Cabral Beauty Clinic — landing page
 
-Site institucional + landing page de conversão da **Mayara Cabral Beauty Clinic**
-(Teixeira de Freitas / BA). HTML5, CSS3 e JavaScript puro — estático, sem build,
-pronto para GitHub Pages.
+Protótipo de apresentação. HTML/CSS/JS estático, sem framework, sem build.
 
 ## Estrutura
 
 ```
-index.html            Landing institucional (hero, sobre, procedimentos, resultados, guia, FAQ, contato)
-procedimentos.html    Ficha completa dos 17 procedimentos, com filtro por categoria
-assets/css/style.css  Design system completo (tokens de cor, tipografia, componentes)
-assets/js/main.js     Navegação, reveal, FAQ, filtros e o "Guia do seu olhar"
-assets/img/           Logo em SVG, favicon, fotos otimizadas em WebP e capa OG
-CNAME                 Domínio customizado (mayaracabralbeauty.com.br)
-robots.txt sitemap.xml
-.nojekyll             Impede o Jekyll de processar a pasta no GitHub Pages
+index.html            Landing de conversão (13 seções)
+procedimentos.html    Catálogo completo, com filtro por categoria
+assets/css/style.css  Sistema visual completo (~29 KB)
+assets/js/main.js     Menu, reveal, sliders, filtro (~4 KB)
+assets/img/           14 imagens em WebP + logo em SVG (~390 KB)
 ```
 
-## Publicação no GitHub Pages
+Peso total: **464 KB**, incluindo todas as imagens.
 
-1. Suba o conteúdo desta pasta na raiz do repositório `siteweb_mcbeauty`.
-2. Settings → Pages → Source: `Deploy from a branch` → branch `main`, pasta `/ (root)`.
-3. Em **Custom domain**, informe `mayaracabralbeauty.com.br` e marque *Enforce HTTPS*.
-4. No provedor do domínio, aponte:
-   - `A` → 185.199.108.153 / 185.199.109.153 / 185.199.110.153 / 185.199.111.153
-   - `CNAME` do `www` → `SEU-USUARIO.github.io`
+## Publicar
 
-## Dois ajustes que você pode querer fazer
+Não precisa de build. Sobe a pasta inteira em qualquer host estático:
 
-**1. Mostrar ou esconder os preços** — `assets/js/main.js`, primeira linha da configuração:
+- **GitHub Pages** — commit na branch `main`, Settings → Pages → Deploy from branch → `/ (root)`
+- **Netlify / Vercel / Cloudflare Pages** — arrasta a pasta, sem configuração
+- **Hospedagem comum** — envia por FTP para `public_html/`
 
-```js
-var SHOW_PRICES = false;   // true = exibe os valores já cadastrados nas fichas
-```
+Único requisito: servir por HTTP. Abrir o `index.html` direto do disco (`file://`) faz o mapa do Google não carregar.
 
-Os valores de todos os procedimentos já estão no HTML, dentro de `<p class="proc__price price">`.
-Com `false`, ficam invisíveis e o lead é levado a perguntar no WhatsApp.
+## Trocar as imagens
 
-**2. Trocar o número do WhatsApp** — mesma seção:
+Todos os nomes são semânticos. Para substituir por versões em alta, mantenha o nome do
+arquivo e a proporção 3:4 (retrato):
 
-```js
-var WHATSAPP = '5573999267426';
-```
+| Arquivo | Onde aparece |
+|---|---|
+| `hero.webp` | Hero |
+| `mayara.webp` | Seção "Sobre a Mayara" |
+| `metodo-1/2/3.webp` | Faixa de fotos do método |
+| `ad-design-1/2/3.webp` | Antes e depois — design |
+| `ad-lamination-1/2.webp` | Antes e depois — Brow Lamination |
+| `ad-make-1.webp` | Antes e depois — make + penteado |
+| `espaco-1/2/4.webp` | Galeria da clínica |
 
-Cada botão do site tem sua própria mensagem pronta, definida no atributo `data-wa` do HTML.
+Para converter novas fotos:
+`cwebp -q 84 foto.jpg -o assets/img/nome.webp`
 
-## Depoimentos
+## Slots reservados
 
-A seção de prova social usa **apenas comentários públicos reais** publicados no
-Instagram da clínica. Dentro do `index.html`, logo abaixo desses cards, há um bloco
-comentado com o modelo para colar novos depoimentos reais (WhatsApp, Google ou Instagram).
+Na seção de resultados existem três cards com moldura tracejada aguardando foto:
+**Nanofios**, **Brows Repair** e **Lash Lifting**. Estão em `index.html`, marcados com
+o comentário `<!-- SLOTS RESERVADOS -->`. Para ativar, troque o `<article class="ad-card ad-card--empty">`
+por um card normal seguindo o padrão dos anteriores.
 
-## Conteúdo pendente
+## Rastreamento
 
-- Fotos de resultado de: lash lifting, hidra gloss, nanofios, brows repair, epilação, penteado e remoção a laser.
-- Endereço completo da clínica (hoje o site informa apenas a cidade).
-- Depoimentos escritos por clientes.
+Nenhum pixel instalado. Para medir depois, cole o script do GA4 ou do Meta Pixel antes de
+`</head>` nos dois arquivos. Os links de WhatsApp já têm mensagem diferente por seção, então
+dá para saber qual bloco gerou o contato só lendo a primeira mensagem que chega.
+
+## Pendências
+
+- [ ] Resposta da Mayara: **"dói?"** — pergunta removida do FAQ por falta de resposta
+- [ ] Resposta da Mayara: **"preciso deixar crescer antes?"** — idem
+- [ ] Confirmar se **Hidra Gloss** é de cílios (arquivo de dados) ou de lábios (post do Instagram)
+- [ ] Confirmar qual Instagram é o oficial: `@mcbeautyclinic_` ou `@mayaracabralbeauty_`
+- [ ] 1 ou 2 frases sobre a história da **Flórida**
+- [ ] Fotos em alta resolução
+- [ ] Antes e depois de Nanofios, Brows Repair e Lash Lifting
+- [ ] Domínio
+- [ ] Perfil no Google Meu Negócio (o bloco de avaliação não existe na página justamente porque
+      não há dado real — quando existir, é a prova social mais forte que a página pode receber)
